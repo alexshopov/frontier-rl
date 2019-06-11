@@ -1,0 +1,26 @@
+{
+  "name": "kotb",
+  "version": "1.0.0",
+  "description": "roguelike inspired by the classic D&D module B2: The Keep on the Borderlands",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack --modee production",
+    "start": "webpack-dev-server --mode development --open"
+  },
+  "keywords": [],
+  "author": "Alex Shopov",
+  "license": "BSD",
+  "devDependencies": {
+    "@babel/core": "^7.4.5",
+    "@babel/preset-env": "^7.4.5",
+    "babel-loader": "^8.0.6",
+    "html-loader": "^0.5.5",
+    "html-webpack-plugin": "^3.2.0",
+    "webpack": "^4.33.0",
+    "webpack-cli": "^3.3.4",
+    "webpack-dev-server": "^3.7.1"
+  },
+  "dependencies": {
+    "phaser": "^3.17.0"
+  }
+}
