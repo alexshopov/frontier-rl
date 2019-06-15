@@ -6,7 +6,7 @@ export default class DungeonScene extends Phaser.Scene {
     }
 
     create () {
-	this.player = this.add.text( 128, 128, '@', { fontFamily: 'Arial', fill: 'white', fontSize: 32 });
+	this.player = this.add.text( 128, 128, '@', { fontFamily: 'Arial', fill: 'white', fontSize: 16 });
 
 	this.keyboard = this.input.keyboard.addKeys('W, A, S, D');
     }
@@ -24,7 +24,7 @@ export default class DungeonScene extends Phaser.Scene {
     }
 
     move(dx, dy) {
-	this.player.x += (dx * 32);
-	this.player.y += (dy * 32);
+	this.player.x += (dx * 16);
+	this.player.y += (dy * 16);
     }
 }
