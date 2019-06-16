@@ -10,7 +10,9 @@ const config = {
     height: SCREEN_HEIGHT,
     physics: {
 	default: 'arcade',
-	debug: true
+	arcade: {
+	    gravity: { y: 0 }
+	}
     },
     scene: DungeonScene
 };
