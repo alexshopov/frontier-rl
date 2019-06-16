@@ -11,7 +11,7 @@ export default class SpriteEntity extends Phaser.Physics.Arcade.Sprite {
 
 	this.setOrigin(0, 0);
 
-	this.size = 32;
+	this.size = 16;
 
 	this.setCollideWorldBounds(true);
 	//this.setDebug(true, true, 0xff0000);
@@ -22,10 +22,5 @@ export default class SpriteEntity extends Phaser.Physics.Arcade.Sprite {
 
     update() {
 	//console.log('overlap-x', this.scene.physics.overlap(this, this.scene.wall));
-    }
-
-    move(dx, dy) {
-	this.x += (dx * this.size);
-	this.y += (dy * this.size);
     }
 }

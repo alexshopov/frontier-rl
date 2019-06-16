@@ -8,32 +8,29 @@ export default class DungeonScene extends Scene {
 
     preload() {
 	this.load.image('player', 'assets/player.png');
-	this.load.image('dungeon-tiles', 'assets/dungeon-tiles.png');
+	this.load.image('dungeon-tiles', 'assets/wall-set.png', { frameWidth: 16, frameHeight:16 });
     }
 
     create() {
 	const level = [
-	    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-	    [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0],
-	    [0, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0],
-	    [0, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0],
-	    [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0],
-	    [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0],
-	    [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0],
-	    [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0],
-	    [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0],
-	    [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0],
-	    [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0],
-	    [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 0],
-	    [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0],
-	    [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0],
-	    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+	    [ 0,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1, 2],
+	    [10, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 12],
+	    [10, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 12],
+	    [10, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 12],
+	    [ 3,  1, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 12],
+	    [10, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 12],
+	    [10, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 12],
+	    [10, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 12],
+	    [10, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 12],
+	    [10, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 12],
+	    [10, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 12],
+	    [20, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 22],
 	];
 
-	const map = this.make.tilemap({ data: level, tileWidth: 32, tileHeight: 32 });
+	const map = this.make.tilemap({ data: level, tileWidth: 16, tileHeight: 16 });
 	const tiles = map.addTilesetImage('dungeon-tiles');
 	const dungeonLayer = map.createStaticLayer(0, tiles, 0, 0);
-	dungeonLayer.setCollision(0);
+	dungeonLayer.setCollision([0, 1, 2, 10, 12, 21]);
 
 	/*
 	const debugGraphics = this.add.graphics().setAlpha(0.75);
@@ -44,9 +41,7 @@ export default class DungeonScene extends Scene {
 	});
 	*/
 
-	//this.player = new SpriteEntity(this, 128, 128, 'player');
-	this.player = this.physics.add.sprite(128, 128, 'player');
-
+	this.player = new SpriteEntity(this, 128, 128, 'player').setScale(0.5);
 
 	this.collider = this.physics.add.collider(this.player, dungeonLayer);
 
