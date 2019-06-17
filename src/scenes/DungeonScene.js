@@ -17,9 +17,9 @@ export default class DungeonScene extends Scene {
 	    [ 3,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4, 5],
 	    [ 3,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4, 5],
 	    [ 3,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4, 5],
-	    [ 3,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4, 5],
-	    [ 3,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4, 5],
-	    [ 3,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4, 5],
+	    [ 3,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4, 6],
+	    [ 3,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4, 4],
+	    [ 3,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4, 0],
 	    [ 3,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4, 5],
 	    [ 3,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4, 5],
 	    [ 3,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4, 5],
@@ -42,12 +42,19 @@ export default class DungeonScene extends Scene {
 	*/
 
 	this.player = new SpriteEntity(this, 128, 128, 'player');
+	this.player.setScale(.8);
 
 	this.collider = this.physics.add.collider(this.player, dungeonLayer);
 
 	this.createKeyboardHandler();
 	this.createMouseHandler();
 	this.createStatusText();
+
+/*
+	this.input.on('pointerup', (pointer) => {
+	    this.physics.moveToObject(this.player, pointer, 240);
+	});
+*/
     }
 
     createKeyboardHandler() {
