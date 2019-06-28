@@ -18,6 +18,9 @@ export default class DungeonScene extends Scene {
 	this.dungeon = new Dungeon(this);
 	this.player = new SpriteEntity(this, 128, 128, 'player');
 
+	this.kobold = new SpriteEntity(this, 192, 128, 'player');
+	this.kobold.tint = 0xbf6621;
+
 	this.collider = this.physics.add.collider(this.player, this.dungeon.layer);
 
 	this.createKeyboardHandler();
@@ -39,8 +42,6 @@ export default class DungeonScene extends Scene {
 		this.player.move(action.move);
 	    }
 	});
-
-	//this.keyboard = this.input.keyboard.addKeys('W, A, S, D');
     }
 
     createMouseHandler() {
@@ -50,25 +51,13 @@ export default class DungeonScene extends Scene {
     }
 
     createStatusText() {
-	this.status = this.add.text(400, 550, 'Status:', { fontFamily: 'Arial', fill: 'white', fontSize: 16 }); 
+	this.status = this.add.text(600, 750, 'Status:', { fontFamily: 'Arial', fill: 'white', fontSize: 16 }); 
 	this.status.setOrigin(0.5);
     }
 
     update() {
-	/*
-	this.player.body.setVelocity(0);
+	const playerPosition = this.player.getCell();
 
-	if (this.keyboard.W.isDown) {
-	    this.player.setVelocityY(-150);
-	} else if (this.keyboard.S.isDown) {
-	    this.player.setVelocityY(150);
-	} else if (this.keyboard.A.isDown) {
-	    this.player.setVelocityX(-150);
-	} else if (this.keyboard.D.isDown) {
-	    this.player.setVelocityX(150);
-	}
-
-	this.status.text = `Player position: ${this.player.x}, ${this.player.y}`
-	*/
+	this.status.text = `Player position: ${playerPosition.x}, ${playerPosition.y}`
     }
 }
