@@ -1,8 +1,8 @@
 import Phaser from 'phaser';
 import DungeonScene from './scenes/DungeonScene'
 
-const SCREEN_WIDTH = 800;
-const SCREEN_HEIGHT = 600;
+const SCREEN_WIDTH = 1280;
+const SCREEN_HEIGHT = 800;
 
 const config = {
     type: Phaser.AUTO,
