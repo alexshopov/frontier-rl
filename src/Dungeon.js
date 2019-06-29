@@ -1,25 +1,19 @@
 import Phaser from 'phaser';
+import GameMap from './GameMap';
+import {
+    MAP_WIDTH,
+    MAP_HEIGHT,
+    CELL_SIZE
+} from './constants';
 
 export default class Dungeon {
     constructor(scene) {
 	this.scene = scene;
 
-	this.level = [
-	    [ 2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2, 2],
-	    [ 2,  3,  3,  3,  3,  3,  3,  3,  3,  3,  3,  3,  3,  3,  3, 2],
-	    [ 2,  3,  3,  3,  3,  3,  3,  3,  3,  3,  3,  3,  3,  3,  3, 2],
-	    [ 2,  3,  3,  3,  3,  3,  3,  3,  3,  3,  3,  3,  3,  3,  3, 2],
-	    [ 2,  3,  3,  3,  3,  3,  3,  3,  3,  3,  3,  3,  3,  3,  3, 2],
-	    [ 2,  3,  3,  3,  3,  3,  3,  3,  3,  3,  3,  3,  3,  3,  3, 2],
-	    [ 2,  3,  3,  3,  3,  3,  3,  3,  3,  3,  3,  3,  3,  3,  3, 2],
-	    [ 2,  3,  3,  3,  3,  3,  3,  3,  3,  3,  3,  3,  3,  3,  3, 2],
-	    [ 2,  3,  3,  3,  3,  3,  3,  3,  3,  3,  3,  3,  3,  3,  3, 2],
-	    [ 2,  3,  3,  3,  3,  3,  3,  3,  3,  3,  3,  3,  3,  3,  3, 2],
-	    [ 2,  3,  3,  3,  3,  3,  3,  3,  3,  3,  3,  3,  3,  3,  3, 2],
-	    [ 2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2, 2]
-	];
+	this.dungeonMap = new GameMap(MAP_WIDTH, MAP_HEIGHT);
+	this.level = [];
 
-	this.map = this.scene.make.tilemap({ data: this.level, tileWidth: 16, tileHeight: 16 });
+	this.map = this.scene.make.tilemap({ data: this.dungeonMap.mapTiles(), tileWidth: CELL_SIZE, tileHeight: CELL_SIZE });
 	this.tiles = this.map.addTilesetImage('dungeon-tiles');
 	this.layer = this.map.createStaticLayer(0, this.tiles, 0, 0);
 	this.layer.setCollisionByExclusion([1, 3]);
@@ -34,5 +28,4 @@ export default class Dungeon {
 	*/
     }
 }
-
 

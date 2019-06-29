@@ -1,8 +1,7 @@
 import Phaser from 'phaser';
-import DungeonScene from './scenes/DungeonScene'
+import { SCREEN_WIDTH, SCREEN_HEIGHT } from './constants'
 
-const SCREEN_WIDTH = 1280;
-const SCREEN_HEIGHT = 800;
+import DungeonScene from './scenes/DungeonScene'
 
 const config = {
     type: Phaser.AUTO,

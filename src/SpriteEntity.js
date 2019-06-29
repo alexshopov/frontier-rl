@@ -28,7 +28,7 @@ export default class Entity extends Phaser.Physics.Arcade.Sprite {
 	return { x: this.x / CELL_SIZE, y: this.y / CELL_SIZE }
     }
 
-    move({dx, dy}) {
+    move(dx, dy) {
 	this.x += dx * CELL_SIZE;
 	this.y += dy * CELL_SIZE;
     }

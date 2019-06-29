@@ -1,5 +1,6 @@
 import { Scene } from 'phaser';
-import handleKeys from '../inputHandlers' 
+import handleKeys from '../inputHandlers'; 
+import { CELL_SIZE } from '../constants';
 import Dungeon from '../Dungeon';
 import SpriteEntity from '../SpriteEntity';
 
@@ -11,7 +12,7 @@ export default class DungeonScene extends Scene {
 
     preload() {
 	this.load.image('player', 'assets/player.png');
-	this.load.image('dungeon-tiles', 'assets/dungeon-tiles.png', { frameWidth: 16, frameHeight: 16 });
+	this.load.image('dungeon-tiles', 'assets/dungeon-tiles.png', { frameWidth: CELL_SIZE, frameHeight: CELL_SIZE });
     }
 
     create() {
@@ -26,12 +27,6 @@ export default class DungeonScene extends Scene {
 	this.createKeyboardHandler();
 	this.createMouseHandler();
 	this.createStatusText();
-
-/*
-	this.input.on('pointerup', (pointer) => {
-	    this.physics.moveToObject(this.player, pointer, 240);
-	});
-*/
     }
 
     createKeyboardHandler() {
@@ -39,7 +34,12 @@ export default class DungeonScene extends Scene {
 	    const action = handleKeys(e.key);
 
 	    if (action.move) {
-		this.player.move(action.move);
+		const { x, y } = this.player.getCell();
+		const { dx, dy } = action.move;
+
+		if (!this.dungeon.dungeonMap.isBlocked(y + dy, x + dx)) {
+		    this.player.move(dx, dy);
+		}
 	    }
 	});
     }
@@ -48,6 +48,12 @@ export default class DungeonScene extends Scene {
 	this.input.on('pointerup', (pointer) => {
 	    this.status.text = `Mouse released at ${pointer.x}, ${pointer.y}`;
 	});
+
+	/*
+	this.input.on('pointerup', (pointer) => {
+	    this.physics.moveToObject(this.player, pointer, 240);
+	});
+	*/
     }
 
     createStatusText() {
@@ -56,8 +62,8 @@ export default class DungeonScene extends Scene {
     }
 
     update() {
-	const playerPosition = this.player.getCell();
+	const { x, y } = this.player.getCell();
 
-	this.status.text = `Player position: ${playerPosition.x}, ${playerPosition.y}`
+	this.status.text = `Player position: ${x}, ${y}`
     }
 }
