@@ -64,7 +64,7 @@ export default class GameMap {
 	    }
 
 	    if (didIntersect) {
-		break;
+		continue;
 	    }
 
 	    this.createRoom(newRoom);
@@ -93,6 +93,8 @@ export default class GameMap {
 	    rooms.push(newRoom);
 	    numRooms += 1;
 	}
+
+	console.log(numRooms);
     }
 
     randomInt(min, max) {
