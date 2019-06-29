@@ -13,6 +13,8 @@ export default class Dungeon {
 	this.dungeonMap = new GameMap(MAP_WIDTH, MAP_HEIGHT);
 	this.dungeonMap.makeMap();
 
+	this.dungeonStart = this.dungeonMap.levelStart;
+
 	this.map = this.scene.make.tilemap({ data: this.dungeonMap.mapTiles(), tileWidth: CELL_SIZE, tileHeight: CELL_SIZE });
 	this.tiles = this.map.addTilesetImage('dungeon-tiles');
 	this.layer = this.map.createStaticLayer(0, this.tiles, 0, 0);

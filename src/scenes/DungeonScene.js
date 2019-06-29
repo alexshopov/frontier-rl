@@ -17,9 +17,9 @@ export default class DungeonScene extends Scene {
 
     create() {
 	this.dungeon = new Dungeon(this);
-	this.player = new SpriteEntity(this, 25, 25, 'player');
+	this.player = new SpriteEntity(this, this.dungeon.dungeonStart.x, this.dungeon.dungeonStart.y, 'player');
 
-	this.kobold = new SpriteEntity(this, 25, 40, 'player');
+	this.kobold = new SpriteEntity(this, 40, 20, 'player');
 	this.kobold.tint = 0xbf6621;
 
 	this.collider = this.physics.add.collider(this.player, this.dungeon.layer);
