@@ -8,7 +8,7 @@ export default class Entity extends Phaser.Physics.Arcade.Sprite {
      */
 
     constructor(scene, x, y, texture) {
-	super(scene, x, y, texture);
+	super(scene, x * CELL_SIZE, y * CELL_SIZE, texture);
 	scene.physics.world.enable(this);
 	scene.add.existing(this);
 
@@ -18,7 +18,6 @@ export default class Entity extends Phaser.Physics.Arcade.Sprite {
 	this.setOrigin(0, 0);
 	this.setScale(0.5); // @TODO create a new sprite
 
-	//this.size = 16;
 	//this.setCollideWorldBounds(true);
 
 	this.playerState = 'idle';

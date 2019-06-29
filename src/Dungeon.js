@@ -1,5 +1,5 @@
 import Phaser from 'phaser';
-import GameMap from './GameMap';
+import GameMap from './mapObjects/GameMap';
 import {
     MAP_WIDTH,
     MAP_HEIGHT,
@@ -11,7 +11,7 @@ export default class Dungeon {
 	this.scene = scene;
 
 	this.dungeonMap = new GameMap(MAP_WIDTH, MAP_HEIGHT);
-	this.level = [];
+	this.dungeonMap.makeMap();
 
 	this.map = this.scene.make.tilemap({ data: this.dungeonMap.mapTiles(), tileWidth: CELL_SIZE, tileHeight: CELL_SIZE });
 	this.tiles = this.map.addTilesetImage('dungeon-tiles');
