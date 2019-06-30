@@ -1,5 +1,5 @@
 import Phaser from 'phaser';
-import GameMap from './mapObjects/GameMap';
+import LevelMap from './mapObjects/LevelMap';
 import {
     MAP_WIDTH,
     MAP_HEIGHT,
@@ -7,10 +7,16 @@ import {
 } from './constants';
 
 export default class Dungeon {
+
+    /**
+     * Dungeon class
+     * @param {Scene} scene - The scene this dungeon belongs to
+     */
+
     constructor(scene) {
 	this.scene = scene;
 
-	this.dungeonMap = new GameMap(MAP_WIDTH, MAP_HEIGHT);
+	this.dungeonMap = new LevelMap(MAP_WIDTH, MAP_HEIGHT);
 	this.dungeonMap.makeMap();
 
 	this.dungeonStart = this.dungeonMap.levelStart;
@@ -20,6 +26,9 @@ export default class Dungeon {
 	this.layer = this.map.createStaticLayer(0, this.tiles, 0, 0);
 	this.layer.setCollisionByExclusion([1, 3]);
 
+	/*
+	 * debugging data for collision testing
+	 */
 	/*
 	const debugGraphics = this.add.graphics().setAlpha(0.75);
 	dungeonLayer.renderDebug(debugGraphics, {

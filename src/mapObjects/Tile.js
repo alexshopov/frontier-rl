@@ -1,12 +1,10 @@
 export default class Tile {
-    /*
-     * generic map tile. May or may not block movement and/or line of sight
+    /**
+     * Generic map tile. May or may not block movement and/or line of sight
+     * @param {Boolean} blocked - Does the tile block player movement
+     * @param {Boolean} blockSight - Does the tile block player line of sight
      */
 
-    /*
-     * @param {bool} blocked
-     * @param {bool} blockSight
-     */
     constructor(blocked, blockSight = undefined) {
 	this.blocked = blocked;
 

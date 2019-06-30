@@ -9,7 +9,13 @@ import {
     DUNGEON_TILES
 } from '../constants';
 
-export default class GameMap {
+export default class LevelMap {
+
+    /**
+     * Class to set up, generate, and interact with a map level 
+     * @param {Number} width - Width of the level map in tiles
+     * @param {Number} height - Height of the level map in tiles
+     */
     constructor(width, height) {
 	this.width = width;
 	this.height = height;
@@ -18,7 +24,8 @@ export default class GameMap {
     }
 
     /*
-     * initialize map with all tiles blocked to start
+     * Initialize map with all tiles blocked to start
+     * @return {Tile[]}
      */
     initializeTiles() {
 	let tiles = [];
@@ -34,6 +41,9 @@ export default class GameMap {
 	return tiles;
     }
 
+    /**
+     * Make map by digging rooms out of the blocked tiles and connecting them with tunnels
+     */
     makeMap() {
 	let rooms = [];
 
@@ -62,8 +72,8 @@ export default class GameMap {
 		this.createRoom(newRoom);
 		const [newX, newY] = newRoom.center();
 		
-		// player will start in first room
 		if (rooms.length === 0) {
+		    // player will start in first room
 		    this.levelStart = { x: newX, y: newY };
 		 } else {
 		    // connect to previous room with a tunnel
@@ -76,6 +86,7 @@ export default class GameMap {
 			this.createHorizontalTunnel(prevX, newX, prevY);
 			this.createVerticalTunnel(prevY, newY, newX);
 		    } else {
+			// first vertical, then horizontal
 			this.createVerticalTunnel(prevY, newY, prevX);
 			this.createHorizontalTunnel(prevX, newX, newY);
 		    }
@@ -86,13 +97,21 @@ export default class GameMap {
 	}
     }
 
-    /*
+    /**
+     * Generate a random int between two values
      * from https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
+     * @param {Number} min - The minimum random integer value
+     * @param {Number} max - The maximum random integer value
+     * @return {Number}
      */
     randomInt(min, max) {
 	return Math.floor(Math.random() * (max - min)) + min;
     }
 
+    /**
+     * Dig out room by unblocking tiles
+     * @param {Room} room - The room to dig out
+     */
     createRoom(room) {
 	for (let x = room.x1 + 1; x < room.x2; ++x) {
 	    for (let y = room.y1 + 1; y < room.y2; ++y) {
@@ -102,6 +121,12 @@ export default class GameMap {
 	}
     }
 
+    /**
+     * Dig out horizontal tunnel
+     * @param {Number} x1 - Starting x-coordinate
+     * @param {Number} x2 - Ending x-coordinate
+     * @param {Number} y - The y-coordinate
+     */
     createHorizontalTunnel(x1, x2, y) {
 	for (let x = Math.min(x1, x2), l = Math.max(x1, x2) + 1; x < l; ++x) {
 	    this.tiles[x][y].blocked = false;
@@ -109,6 +134,12 @@ export default class GameMap {
 	}
     }
 
+    /**
+     * Dig out vertiacl tunnel
+     * @param {Number} y1 - Starting y-coordinate
+     * @param {Number} y2 - Ending y-coordinate
+     * @param {Number} x - The x-coordinate 
+     */
     createVerticalTunnel(y1, y2, x) {
 	for (let y = Math.min(y1, y2), l = Math.max(y1, y2) + 1; y < l; ++y) {
 	    this.tiles[x][y].blocked = false;
@@ -116,6 +147,12 @@ export default class GameMap {
 	}
     }
 
+    /**
+     * Determine if
+     * @param {Number} x - The x-coordinate of the tile
+     * @param {Number} y - The y-coordinate of the tile
+     * @return {Boolean}
+     */
     isBlocked(x, y) {
 	if (this.tiles[y][x].blocked) {
 	    return true;
@@ -124,6 +161,10 @@ export default class GameMap {
 	return false;
     }
 
+    /**
+     * Convert the level data into a tile map
+     * @TODO - allow for tile types to be passed in so this can be used for more than just one type of dungeon
+     */
     mapTiles() {
 	let tilemap = [];
 

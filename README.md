@@ -8,6 +8,7 @@ adapted for JavaScript instead of Python. Dev blog to follow.
 [Demo](https://alexshopov.github.io/frontier-rl/)
 
 Week 1: Part 0-1 - Project setup. Create a basic scene, draw the '@' symbol, move it around.
+
 Week 2: Parts 2-3 - Generic entity, map, dungeon generation
 
 ### Building Frontier from source
