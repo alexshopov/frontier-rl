@@ -1,19 +1,19 @@
-import 'phaser';
-import DungeonScene from './scenes/dungeon'
+import Phaser from 'phaser';
+import { SCREEN_WIDTH, SCREEN_HEIGHT } from './constants'
 
-const SCREEN_WIDTH = 800;
-const SCREEN_HEIGHT = 600;
+import DungeonScene from './scenes/DungeonScene'
 
 const config = {
-    type: Phaser.CANVAS,
+    type: Phaser.AUTO,
     width: SCREEN_WIDTH,
     height: SCREEN_HEIGHT,
     physics: {
-	default: 'arcade'
+	default: 'arcade',
+	arcade: {
+	    gravity: { y: 0 }
+	}
     },
-    scene: [
-	DungeonScene
-    ]
+    scene: DungeonScene
 };
 
 const game = new Phaser.Game(config);
