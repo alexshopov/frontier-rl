@@ -1,4 +1,6 @@
-import Phaser from 'phaser';
+// uncomment this import if debugging collisions
+// import Phaser from 'phaser';
+
 import LevelMap from './mapObjects/LevelMap';
 import {
     MAP_WIDTH,
