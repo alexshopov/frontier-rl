@@ -10,13 +10,6 @@ import {
 } from '../constants';
 
 export default class GameMap {
-    /*
-     * map is buile up by row, so need to think in terms of [y, x] instead of [x, y]
-     * [[1, 1, 1, 1],
-     *  [1, 0, 0, 1],
-     *  [1, 1, 1, 1]]
-     */
-
     constructor(width, height) {
 	this.width = width;
 	this.height = height;
@@ -24,6 +17,9 @@ export default class GameMap {
 	this.tiles = this.initializeTiles();
     }
 
+    /*
+     * initialize map with all tiles blocked to start
+     */
     initializeTiles() {
 	let tiles = [];
 
@@ -40,7 +36,6 @@ export default class GameMap {
 
     makeMap() {
 	let rooms = [];
-	let numRooms = 0;
 
 	for (let r = 0; r < MAX_ROOMS; ++r) {
 	    // random width and height
@@ -63,40 +58,37 @@ export default class GameMap {
 		}
 	    }
 
-	    if (didIntersect) {
-		continue;
-	    }
+	    if (!didIntersect) {
+		this.createRoom(newRoom);
+		const [newX, newY] = newRoom.center();
+		
+		// player will start in first room
+		if (rooms.length === 0) {
+		    this.levelStart = { x: newX, y: newY };
+		 } else {
+		    // connect to previous room with a tunnel
 
-	    this.createRoom(newRoom);
+		    // center of prev room
+		    const [prevX, prevY] = rooms[rooms.length - 1].center();
 
-	    const [newX, newY] = newRoom.center();
-	    
-	    // player will start in first room
-	    if (numRooms === 0) {
-		this.levelStart = { x: newX, y: newY };
-	     } else {
-		// connect to previous room with a tunnel
-		 //
-		// center of prev room
-		const [prevX, prevY] = rooms[numRooms - 1].center();
-
-		if (this.randomInt(0, 1) === 1) {
-		    // first horizontal, then vertical
-		    this.createHorizontalTunnel(prevX, newX, prevY);
-		    this.createVerticalTunnel(prevY, newY, newX);
-		} else {
-		    this.createVerticalTunnel(prevY, newY, prevX);
-		    this.createHorizontalTunnel(prevX, newX, newY);
+		    if (this.randomInt(0, 1) === 1) {
+			// first horizontal, then vertical
+			this.createHorizontalTunnel(prevX, newX, prevY);
+			this.createVerticalTunnel(prevY, newY, newX);
+		    } else {
+			this.createVerticalTunnel(prevY, newY, prevX);
+			this.createHorizontalTunnel(prevX, newX, newY);
+		    }
 		}
+
+		rooms.push(newRoom);
 	    }
-
-	    rooms.push(newRoom);
-	    numRooms += 1;
 	}
-
-	console.log(numRooms);
     }
 
+    /*
+     * from https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
+     */
     randomInt(min, max) {
 	return Math.floor(Math.random() * (max - min)) + min;
     }
